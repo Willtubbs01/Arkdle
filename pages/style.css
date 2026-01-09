@@ -188,6 +188,12 @@ header{
     Guess Headers
 */
 .guess-clues{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    padding: 20px;
     color: aliceblue;
     font-size: 32px;
     border: 5px solid teal;
@@ -196,29 +202,67 @@ header{
 }
 
 .guess-clues h3{
+    margin: 0;
     padding: 0px 24px;
+    text-align: center;
 }
 
 .guess-clues button{
-    background-color: transparent;
-    
+    justify-content: space-evenly;
 }
 
-.is-hidden{
+.hidden-clues.is-hidden{
     display: none;
 }
 
 .clue-btn{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 16;
+
+    width: fit-content;
+    height: fit-content;
+    padding: 0px, 20px;
+
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 5px solid goldenrod;
+    border-radius: 12px;
+
+    color: aliceblue;
+    font-size: 18px;
+
+    cursor: pointer;
+
     opacity: 0.4;
     pointer-events: none;
     filter: grayscale(1);
-    transition: opacity 0.2s ease, filter 0.2s ease;
+
+    transition:
+        opacity 0.2s ease,
+        filter 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.15s ease;
 }
 
 .clue-btn.unlocked{
     opacity: 1;
     pointer-events: auto;
     filter: none;
+}
+
+.hidden-clues{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;   
+}
+
+.clue-btn img {
+    width: 28px;
+    height: 28px;
+    filter: invert(1);
 }
 
 /*
