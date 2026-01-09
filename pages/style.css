@@ -199,6 +199,28 @@ header{
     padding: 0px 24px;
 }
 
+.guess-clues button{
+    background-color: transparent;
+    
+}
+
+.is-hidden{
+    display: none;
+}
+
+.clue-btn{
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(1);
+    transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.clue-btn.unlocked{
+    opacity: 1;
+    pointer-events: auto;
+    filter: none;
+}
+
 /* Animations */
 @keyframes gradientMove {
     0%{
