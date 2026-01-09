@@ -1,0 +1,94 @@
+{
+  "dinos": [
+    {
+      "name": "Achatina",
+      "diet": "Herbivore",
+      "temperament": "Passive",
+      "tameable": true,
+      "rideable": false,
+      "breedable": true,
+      "biome": "Swamp"
+    },
+    {
+      "name": "Acrocanthosaurus",
+      "diet": "Carnivore",
+      "temperament": "Aggressive",
+      "tameable": true,
+      "rideable": true,
+      "breedable": true,
+      "biome": "Redwoods"
+    },
+    {
+      "name": "Allosaurus",
+      "diet": "Carnivore",
+      "temperament": "Aggressive",
+      "tameable": true,
+      "rideable": true,
+      "breedable": true,
+      "biome": "Mountain"
+    },
+    {
+      "name": "Amargasaurus",
+      "diet": "Herbivore",
+      "temperament": "Aggressive",
+      "tameable": true,
+      "rideable": true,
+      "breedable": true,
+      "biome": "Snow"
+    },
+    {
+      "name": "Ammonite",
+      "diet": "Omnivore",
+      "temperament": "Passive",
+      "tameable": false,
+      "rideable": false,
+      "breedable": false,
+      "biome": "Ocean"
+    },
+    {
+      "name": "Andrewsarchus",
+      "diet": "Omnivore",
+      "temperament": "Neutral",
+      "tameable": true,
+      "rideable": true,
+      "breedable": true,
+      "biome": "Plains"
+    },
+    {
+      "name": "Anglerfish",
+      "diet": "Carnivore",
+      "temperament": "Territorial",
+      "tameable": true,
+      "rideable": true,
+      "breedable": true,
+      "biome": "Ocean"
+    },
+    {
+      "name": "Ankylosaurus",
+      "diet": "Herbivore",
+      "temperament": "Neutral",
+      "tameable": true,
+      "rideable": true,
+      "breedable": true,
+      "biome": "Mountain"
+    },
+    {
+      "name": "Araneo",
+      "diet": "Carnivore",
+      "temperament": "Aggressive",
+      "tameable": true,
+      "rideable": true,
+      "breedable": true,
+      "biome": "Cave"
+    },
+    {
+      "name": "Archaeopteryx",
+      "diet": "Carnivore",
+      "temperament": "Passive",
+      "tameable": true,
+      "rideable": false,
+      "breedable": true,
+      "biome": "Redwoods"
+    }
+  ]
+}

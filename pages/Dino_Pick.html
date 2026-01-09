@@ -67,7 +67,12 @@
 
     
     <div class="player-inputs">
-        <input type="text" id="user-input" name="user-input" placeholder="Enter Answer">
+        <input type="text" id="user-input" name="user-input" placeholder="Enter Answer" list="dino-list" autocomplete="on">
+
+        <datalist id="dino-list">
+        </datalist>
+
+
         <button type="button" id="submit-btn">
             <img src="../icons/enter.svg" alt="Enter">
         </button>
