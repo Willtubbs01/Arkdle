@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARKDLE</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        .tab-holders-main {
+            width: 30%;
+            height: 50%;
+
+            display: flex;
+            justify-content: center;
+
+            font-size: 48px;
+        }
+
+        .tab-holders-main nav{
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .tab-holders-main a {
+            display: block;
+            padding: 12px 16px;
+
+            text-decoration: none;
+            color: #f2f2f2;
+            background-color: rgba(30, 30, 30, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.2s ease, trasform 0.15s ease;
+        }
+
+        .tab-holders-main a:hover{
+            background-color: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="headers-holder">
+            <a href="#" class="header-option" title="Settings">
+                <img src="../icons/gear.svg" alt="Settings">
+            </a>
+            <a href="#" class="home-button">ARKDLE</a>
+            <a href="#" class="header-option" title="Language">
+                <img src="../icons/globe.svg" alt="Language">
+            </a>
+        </div>
+    </header>
+    
+    <div class="tab-holders-main">
+        <nav>
+            <a href="./Dino_Pick.html">Dino</a>
+            <a href="./NPC_pick.html">NPC Quote</a>
+            <a href="./Map_Pick.html">Which Map</a>
+            <a href="#">Dont know yet might delete</a>
+        </nav>
+    </div>
+
+</body>
+</html>
