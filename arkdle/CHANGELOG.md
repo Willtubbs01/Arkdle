@@ -1,6 +1,8 @@
 
 Patch 0.0.2
 - Switched to React enviroment
+- Names now get removed after checking them as a guess
+
 
 
 Patch 0.0.1

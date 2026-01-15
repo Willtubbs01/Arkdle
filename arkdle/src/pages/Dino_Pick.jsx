@@ -22,7 +22,15 @@ export default function DinoPick() {
     const [guess, setGuess] = useState("");
     const [matches, setMatches] = useState([]);
 
+    const [won, setWon] = useState(false);
+    const [message, setMessage] = useState("");
+    const [playersFinished, setPlayersFinished] = useState(0);
+
+
     const clueUnlocks = useMemo(() => [5, 10, 15], []);
+
+    const TempDOTD = "Ankylosaurus";
+    const TempPlayerFinished = 0;
 
     useEffect(() => {
         let cancelled = false;
@@ -71,6 +79,8 @@ export default function DinoPick() {
     }
 
     function onPlayerGuess() {
+        if(won) return;
+
         const finalGuess = getFinalGuess(guess);
         if (!finalGuess) return;
 
@@ -79,6 +89,15 @@ export default function DinoPick() {
 
         if (!cluesRevealed && nextCount >= 1) {
             setCluesRevealed(true);
+        }
+
+        const correct = finalGuess.trim().toLowerCase() === TempDOTD.trim().toLowerCase();
+
+          if (correct) {
+            setWon(true);
+            setWinning();
+        } else {
+            setMessage(`Wrong guess: ${finalGuess}`);
         }
 
         console.log("Guess submitted:", finalGuess);
@@ -91,6 +110,8 @@ export default function DinoPick() {
 
 
     function onKeyDown(e) {
+        if (won) return;
+
         if (e.key === "Enter") onPlayerGuess();
 
         if (e.key === "Tab") {
@@ -103,8 +124,9 @@ export default function DinoPick() {
     }
 
     function clueUnlocked(unlockAt) {
-        return guessCount >= unlockAt;
+        return won || guessCount >= unlockAt;
     }
+
 
     function getFinalGuess(rawInput) {
         const trimmed = rawInput.trim();
@@ -125,6 +147,17 @@ export default function DinoPick() {
         const first = matches[0];
         setGuess(first);
         updateDetails(first);
+    }
+
+    function setWinning() {
+        setWon(true);
+
+        setCluesRevealed(true);
+
+        setPlayersFinished((p) => p + 1);
+
+        setGuess("");
+        setMatches([]);
     }
 
 
@@ -167,22 +200,19 @@ export default function DinoPick() {
             <div className="guess-clues">
                 <h3>Guess the Dino of the Day!</h3>
 
-                <div className="hidden-clues is-hidden">
-                    <button className="clue-btn" data-unlock="5">
-                        <img src={null} alt="Clue 1" />
-                        <h4>Roar</h4>
-                    </button>
-
-                    <button className="clue-btn" data-unlock="10">
-                        <img src={null} alt="Clue 2" />
-                        <h4>Roar</h4>
-                    </button>
-
-                    <button className="clue-btn" data-unlock="15">
-                        <img src={null} alt="Clue 3" />
-                        <h4>Roar</h4>
-                    </button>
+                <div className={`hidden-clues ${cluesRevealed ? "" : "is-hidden"}`}>
+                    {clueUnlocks.map((unlockAt, idx) => (
+                        <button
+                        key={unlockAt}
+                        type="button"
+                        className={`clue-btn ${clueUnlocked(unlockAt) ? "unlocked" : ""}`}
+                        >
+                        <img src={QuestionMark} alt={`Clue ${idx + 1}`} />
+                        <h4>Clue {idx + 1}</h4>
+                        </button>
+                    ))}
                 </div>
+
             </div>
 
             <div className="player-inputs">
@@ -193,6 +223,7 @@ export default function DinoPick() {
                     placeholder="Enter Answer"
                     list="dino-list"
                     autoComplete="on"
+                    disabled={won}
                     value={guess ?? ""}
                     onChange={(e) => {
                         const v = e.target.value;
@@ -210,12 +241,12 @@ export default function DinoPick() {
                     ))}
                 </datalist>
 
-                <button type="button" id="submit-btn" onClick={onPlayerGuess}>
+                <button type="button" id="submit-btn" onClick={onPlayerGuess} disabled={won}>
                     <img src={ReturnPad} alt="Enter" />
                 </button>
                 </div>
 
-            <p className="players-finished">Player's found so far {/*PlayersFinished*/"0"}!</p>
+            <p className="players-finished">Player's found so far {/*PlayersFinished*/playersFinished}!</p>
 
             <div className="player-guesses">
                 
