@@ -1,8 +1,8 @@
 
 Patch 0.0.2
-- Switched to React enviroment
-- Names now get removed after checking them as a guess
-
+- Added the index.html to make the page changing easier
+- Added a correct answer that will disable the buttons when guessed correct
+- Added the past guesses to show up at the bottom of the screen
 
 
 Patch 0.0.1
