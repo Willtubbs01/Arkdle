@@ -48,3 +48,20 @@
   background-color: lightcyan;
   border: 5px solid rgb(0, 77, 77);
 }
+
+.players-finished {
+    display: flex;
+    flex-direction: row;
+    color: aliceblue;
+}
+
+
+.last-option {
+    display: flex;
+    flex-direction: row;
+    color: aliceblue;
+    background-color: rgb(40, 40, 40);
+    padding: 16px;
+    border: 4px solid teal;
+    border-radius: 20px;
+}

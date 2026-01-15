@@ -3,13 +3,14 @@ import { useEffect, useMemo, useState } from "react";
 import "../css/style.css";
 import "../css/Dino_Pick.css";
 
-//Images
 import BarChart from "../assets/icons/bar-chart.svg";
 import FireSymbol from "../assets/icons/fire.svg";
 import QuestionMark from "../assets/icons/question.svg";
 import NotePad from "../assets/icons/note.svg";
 import ReturnPad from "../assets/icons/enter.svg";
-//"../icons/bar-chart.svg"
+// import PlayersFinished from ; //Backend holds the Player guess data
+
+
 export default function DinoPick() {
 
     const [guessCount, setGuessCount] = useState(0);
@@ -21,21 +22,20 @@ export default function DinoPick() {
     const [guess, setGuess] = useState("");
     const [matches, setMatches] = useState([]);
 
-    // Your clue unlock thresholds (from data-unlock)
     const clueUnlocks = useMemo(() => [5, 10, 15], []);
 
-    // -------------------------
-    // Fetch dinos.json once (replaces DOMContentLoaded + loadDinos())
-    // -------------------------
     useEffect(() => {
         let cancelled = false;
 
         async function loadDinos() {
-        // ✅ Put file at: public/json_packages/dinos.json
-        const res = await fetch("/json_packages/dinos.json");
+        const res = await fetch("/Json/dinos.json");
         if (!res.ok) throw new Error("Failed to get json");
+        if(res.ok) console.log("JSON Fetched");
 
         const data = await res.json();
+        // for (const dino of data.dinos) {
+        //     console.log(dino.name);
+        // }
 
         const arr = Array.isArray(data.dinos) ? data.dinos : [];
         const names = arr
@@ -55,9 +55,7 @@ export default function DinoPick() {
         };
     }, []);
 
-    // -------------------------
-    // Datalist suggestions (replaces updateDetails() + list.innerHTML)
-    // -------------------------
+
     function updateDetails(query) {
         const q = query.trim().toLowerCase();
         if (!q) {
@@ -72,35 +70,64 @@ export default function DinoPick() {
         setMatches(next);
     }
 
-    // -------------------------
-    // Guess submit (replaces onPlayerGuess + event listeners)
-    // -------------------------
     function onPlayerGuess() {
-        const trimmed = guess.trim();
-        if (!trimmed) return;
+        const finalGuess = getFinalGuess(guess);
+        if (!finalGuess) return;
 
         const nextCount = guessCount + 1;
         setGuessCount(nextCount);
 
-        // Reveal clue container after 1 guess (same as your JS)
         if (!cluesRevealed && nextCount >= 1) {
-        setCluesRevealed(true);
+            setCluesRevealed(true);
         }
 
-        console.log("Guess:", trimmed);
+        console.log("Guess submitted:", finalGuess);
 
-        // Clear input (same as input.value = "")
+        setDinoNames((prev) => prev.filter((name) => name.toLowerCase() !== finalGuess.toLowerCase()));
+
         setGuess("");
         setMatches([]);
     }
 
+
     function onKeyDown(e) {
         if (e.key === "Enter") onPlayerGuess();
+
+        if (e.key === "Tab") {
+            if (matches.length > 0) {
+            e.preventDefault();          
+            autocompleteFirstMatch();    
+        }
+    return;
+        }
     }
 
     function clueUnlocked(unlockAt) {
         return guessCount >= unlockAt;
     }
+
+    function getFinalGuess(rawInput) {
+        const trimmed = rawInput.trim();
+        if (!trimmed) return "";
+
+        const exact = dinoNames.find(
+            (n) => n.toLowerCase() === trimmed.toLowerCase()
+        );
+        if (exact) return exact;
+
+        if (matches.length > 0) return matches[0];
+
+        return trimmed;
+    }
+
+    function autocompleteFirstMatch() {
+        if (!matches || matches.length === 0) return;
+        const first = matches[0];
+        setGuess(first);
+        updateDetails(first);
+    }
+
+
 
 
 
@@ -120,7 +147,7 @@ export default function DinoPick() {
                 </NavLink>
             </div>
 
-            <div class="options-stuffs">
+            <div className="options-stuffs">
                 <nav>
                     <a href="#" title="Stats">
                         <img src={BarChart} alt="Stats" />
@@ -137,38 +164,64 @@ export default function DinoPick() {
                 </nav>
             </div>
 
-            <div class="guess-clues">
+            <div className="guess-clues">
                 <h3>Guess the Dino of the Day!</h3>
 
-                <div class="hidden-clues is-hidden">
-                    <button class="clue-btn" data-unlock="5">
-                        <img src="" alt="Clue 1" />
+                <div className="hidden-clues is-hidden">
+                    <button className="clue-btn" data-unlock="5">
+                        <img src={null} alt="Clue 1" />
                         <h4>Roar</h4>
                     </button>
 
-                    <button class="clue-btn" data-unlock="10">
-                        <img src="" alt="Clue 2" />
+                    <button className="clue-btn" data-unlock="10">
+                        <img src={null} alt="Clue 2" />
                         <h4>Roar</h4>
                     </button>
 
-                    <button class="clue-btn" data-unlock="15">
-                        <img src="" alt="Clue 3" />
+                    <button className="clue-btn" data-unlock="15">
+                        <img src={null} alt="Clue 3" />
                         <h4>Roar</h4>
                     </button>
                 </div>
             </div>
 
-            <div class="player-inputs">
-                <input type="text" id="user-input" name="user-input" placeholder="Enter Answer" list="dino-list" autocomplete="on" />
+            <div className="player-inputs">
+                <input
+                    type="text"
+                    id="user-input"
+                    name="user-input"
+                    placeholder="Enter Answer"
+                    list="dino-list"
+                    autoComplete="on"
+                    value={guess ?? ""}
+                    onChange={(e) => {
+                        const v = e.target.value;
+                        setGuess(v);
+                        updateDetails(v);
+                    }}
+                    onFocus={() => updateDetails(guess ?? "")}
+                    onKeyDown={onKeyDown}
+                />
+
 
                 <datalist id="dino-list">
+                    {matches.map((name) => (
+                    <option key={name} value={name} />
+                    ))}
                 </datalist>
 
-
-                <button type="button" id="submit-btn">
+                <button type="button" id="submit-btn" onClick={onPlayerGuess}>
                     <img src={ReturnPad} alt="Enter" />
                 </button>
+                </div>
+
+            <p className="players-finished">Player's found so far {/*PlayersFinished*/"0"}!</p>
+
+            <div className="player-guesses">
+                
             </div>
+
+            <p className="last-option">Last Dino was</p>
 
         </div>
     );
