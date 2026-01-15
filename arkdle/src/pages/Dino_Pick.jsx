@@ -25,6 +25,8 @@ export default function DinoPick() {
     const [won, setWon] = useState(false);
     const [message, setMessage] = useState("");
     const [playersFinished, setPlayersFinished] = useState(0);
+    const [pastGuesses, setPastGuesses] = useState([]);
+
 
 
     const clueUnlocks = useMemo(() => [5, 10, 15], []);
@@ -84,6 +86,8 @@ export default function DinoPick() {
         const finalGuess = getFinalGuess(guess);
         if (!finalGuess) return;
 
+        setPastGuesses((prev) => [finalGuess ,...prev]);
+
         const nextCount = guessCount + 1;
         setGuessCount(nextCount);
 
@@ -103,7 +107,7 @@ export default function DinoPick() {
         console.log("Guess submitted:", finalGuess);
 
         setDinoNames((prev) => prev.filter((name) => name.toLowerCase() !== finalGuess.toLowerCase()));
-
+        
         setGuess("");
         setMatches([]);
     }
@@ -249,8 +253,17 @@ export default function DinoPick() {
             <p className="players-finished">Player's found so far {/*PlayersFinished*/playersFinished}!</p>
 
             <div className="player-guesses">
-                
+                {pastGuesses.length === 0 ? (
+                    <p style={{ color: "white", opacity: 0.7 }}></p>
+                ) : (
+                    pastGuesses.map((g, i) => (
+                    <div key={`${g}-${i}`} className="guess-item">
+                        {g}
+                    </div>
+                    ))
+                )}
             </div>
+
 
             <p className="last-option">Last Dino was</p>
 
