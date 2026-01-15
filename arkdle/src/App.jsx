@@ -1,9 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./Layout.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import DinoPage from "./pages/Dino_Pick.jsx";
 
 // placeholders for now
-function DinoPage() { return <div style={{ color: "white" }}>Dino Page</div>; }
+// function DinoPage() { return <div style={{ color: "white" }}>Dino Page</div>; }
 function NpcPage() { return <div style={{ color: "white" }}>NPC Quote Page</div>; }
 function MapPage() { return <div style={{ color: "white" }}>Map Page</div>; }
 

@@ -115,7 +115,7 @@ header{
   display: block;
   width: 32px;
   height: 32px;
-  filter: invert(1);
+  filter: grayscale(100%) invert(1) brightness(1.2) contrast(1.1);
 }
 
 .options-stuffs a{
@@ -236,48 +236,20 @@ header{
   filter: invert(1);
 }
 
-/*
-  Player Guesses
-*/
-.player-inputs{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.player-inputs input {
-  padding: 12px 16px;
-  font-size: 18px;
-  border-radius: 10px;
-  border: 5px solid teal;
-  outline: none;
-}
-
-.player-inputs button{
-  width: fit-content;
-  border-radius: 5px;
-  border: 5px solid teal;
-  background-color: lightblue;
-  cursor: pointer;
-}
-
-.player-inputs button img {
-  width: 24px;
-  height: 24px;
-  filter: invert(-1);
-}
-
-.player-inputs button:hover{
-  transform: scale(1.05);
-  background-color: lightcyan;
-  border: 5px solid rgb(0, 77, 77);
-}
-
 .app {
-  min-height: 50vh;
+  /* min-height: 50vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   padding: 24px;
+}
+
+.home-center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  gap: 24px;
 }
